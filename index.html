@@ -66,7 +66,7 @@
   <div class="signature-wrapper">
     <div class="sig-label">Signature Preview</div>
 
-    <!-- VISIBLE PREVIEW -->
+    <!-- VISIBLE PREVIEW — relative paths are fine for browser display -->
     <div id="signature-preview">
       <table cellpadding="0" cellspacing="0" border="0" width="480" style="border-collapse:collapse; font-family:Arial,Helvetica,sans-serif; font-size:12px; width:480px;">
         <tr>
@@ -88,7 +88,6 @@
             <a id="prev-email-link" href="#" style="font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#231f20; text-decoration:none;">you&#64;hellohaledesign.com</a>
           </td>
         </tr>
-        <!-- ARROW + URL: float:left matches original working v1 technique -->
         <tr>
           <td width="480" style="padding:0 0 14px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#231f20; line-height:1.4;">
             <img src="images/arrow.png" alt="" width="12" height="12" style="float:left; border:0; width:12px; min-width:12px; height:12px; min-height:12px; margin-right:5px; margin-top:2px;"><a href="https://www.hellohaledesign.com" style="font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#231f20; text-decoration:none;">hellohaledesign.com</a>
@@ -104,43 +103,8 @@
       </table>
     </div>
 
-    <!-- OFFSCREEN COPY SOURCE -->
-    <div id="sig-copy-source" aria-hidden="true">
-      <table cellpadding="0" cellspacing="0" border="0" width="480" style="border-collapse:collapse; font-family:Arial,Helvetica,sans-serif; font-size:12px; width:480px;">
-        <tr>
-          <td width="480" style="padding:0 0 14px 0;">
-            <div style="background-image:radial-gradient(circle, #231f20 2px, transparent 2px); background-size:10px 4px; background-repeat:repeat-x; height:4px; width:180px; font-size:0; line-height:0;">&nbsp;</div>
-          </td>
-        </tr>
-        <tr>
-          <td width="480" style="padding:0 0 1px 0; font-family:Arial,Helvetica,sans-serif; font-size:15px; font-weight:600; color:#231f20; letter-spacing:0.2px; line-height:1.3;">
-            <span id="copy-name">First Last</span><span id="copy-pronouns-wrap" style="font-family:Arial,Helvetica,sans-serif; font-weight:400; font-size:11px; color:#231f20;"> &nbsp;<span id="copy-pronouns"></span></span>
-          </td>
-        </tr>
-        <tr><td width="480" id="copy-title" style="padding:0 0 12px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; font-weight:400; color:#231f20; line-height:1.4;">Title</td></tr>
-        <tr><td width="480" style="padding:0 0 1px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; font-weight:700; color:#231f20; line-height:1.4;">Hale Design</td></tr>
-        <tr><td width="480" style="padding:0 0 10px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; font-weight:400; font-style:italic; color:#231f20; line-height:1.4;">Strategic. Iconic. Inspired.</td></tr>
-        <tr><td width="480" id="copy-phone" style="padding:0 0 2px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#231f20; line-height:1.4;">555-000-0000</td></tr>
-        <tr>
-          <td width="480" style="padding:0 0 4px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#231f20; line-height:1.4;">
-            <a id="copy-email-link" href="#" style="font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#231f20; text-decoration:none;">you&#64;hellohaledesign.com</a>
-          </td>
-        </tr>
-        <!-- ARROW + URL: float:left matches original working v1 technique -->
-        <tr>
-          <td width="480" style="padding:0 0 14px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#231f20; line-height:1.4;">
-            <img src="images/arrow.png" alt="" width="12" height="12" style="float:left; border:0; width:12px; min-width:12px; height:12px; min-height:12px; margin-right:5px; margin-top:2px;"><a href="https://www.hellohaledesign.com" style="font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#231f20; text-decoration:none;">hellohaledesign.com</a>
-          </td>
-        </tr>
-        <tr>
-          <td width="480" style="padding:0;">
-            <a href="https://www.hellohaledesign.com" target="_blank">
-              <img src="images/logo.png" alt="Hale Design" width="98" height="36" style="display:block; border:0; width:98px; max-width:98px; height:auto; -ms-interpolation-mode:bicubic;">
-            </a>
-          </td>
-        </tr>
-      </table>
-    </div>
+    <!-- OFFSCREEN COPY SOURCE — populated by JS with absolute URLs at copy time -->
+    <div id="sig-copy-source" aria-hidden="true"></div>
 
     <button class="copy-btn" id="copy-btn" onclick="copySignature()">Copy Signature</button>
     <div class="status-bar" id="status-bar"></div>
@@ -162,12 +126,6 @@
   var prevEmailLink = document.getElementById('prev-email-link');
   var prevPhone     = document.getElementById('prev-phone');
 
-  var copyName      = document.getElementById('copy-name');
-  var copyPronouns  = document.getElementById('copy-pronouns');
-  var copyTitle     = document.getElementById('copy-title');
-  var copyEmailLink = document.getElementById('copy-email-link');
-  var copyPhone     = document.getElementById('copy-phone');
-
   function updateSignature() {
     var name     = inputName.value     || 'First Last';
     var pronouns = inputPronouns.value || '';
@@ -176,17 +134,11 @@
     var phone    = inputPhone.value    || '555-000-0000';
 
     prevName.textContent = name;
-    copyName.textContent = name;
     prevPronouns.textContent = pronouns;
-    copyPronouns.textContent = pronouns;
     prevTitle.textContent = title;
-    copyTitle.textContent = title;
     prevEmailLink.textContent = email;
     prevEmailLink.setAttribute('href', 'mailto:' + email);
-    copyEmailLink.textContent = email;
-    copyEmailLink.setAttribute('href', 'mailto:' + email);
     prevPhone.textContent = phone;
-    copyPhone.textContent = phone;
   }
 
   inputName.addEventListener('input',     updateSignature);
@@ -195,6 +147,36 @@
   inputEmail.addEventListener('input',    updateSignature);
   inputPhone.addEventListener('input',    updateSignature);
 
+  function buildSignatureHTML() {
+    // Derives the absolute base URL from wherever the page is hosted —
+    // works on Vercel, GitHub Pages, or any domain, for every team member.
+    var base     = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '');
+    var arrowURL = base + '/images/arrow.png';
+    var logoURL  = base + '/images/logo.png';
+
+    var name     = inputName.value     || 'First Last';
+    var pronouns = inputPronouns.value || '';
+    var title    = inputTitle.value    || 'Title';
+    var email    = inputEmail.value    || 'you@hellohaledesign.com';
+    var phone    = inputPhone.value    || '555-000-0000';
+
+    var pronounsHTML = pronouns
+      ? ' &nbsp;<span style="font-family:Arial,Helvetica,sans-serif; font-weight:400; font-size:11px; color:#231f20;">' + pronouns + '</span>'
+      : '';
+
+    return '<table cellpadding="0" cellspacing="0" border="0" width="480" style="border-collapse:collapse; font-family:Arial,Helvetica,sans-serif; font-size:12px; width:480px;">'
+      + '<tr><td width="480" style="padding:0 0 14px 0;"><div style="background-image:radial-gradient(circle, #231f20 2px, transparent 2px); background-size:10px 4px; background-repeat:repeat-x; height:4px; width:180px; font-size:0; line-height:0;">&nbsp;</div></td></tr>'
+      + '<tr><td width="480" style="padding:0 0 1px 0; font-family:Arial,Helvetica,sans-serif; font-size:15px; font-weight:600; color:#231f20; letter-spacing:0.2px; line-height:1.3;">' + name + pronounsHTML + '</td></tr>'
+      + '<tr><td width="480" style="padding:0 0 12px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; font-weight:400; color:#231f20; line-height:1.4;">' + title + '</td></tr>'
+      + '<tr><td width="480" style="padding:0 0 1px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; font-weight:700; color:#231f20; line-height:1.4;">Hale Design</td></tr>'
+      + '<tr><td width="480" style="padding:0 0 10px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; font-weight:400; font-style:italic; color:#231f20; line-height:1.4;">Strategic. Iconic. Inspired.</td></tr>'
+      + '<tr><td width="480" style="padding:0 0 2px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#231f20; line-height:1.4;">' + phone + '</td></tr>'
+      + '<tr><td width="480" style="padding:0 0 4px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#231f20; line-height:1.4;"><a href="mailto:' + email + '" style="font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#231f20; text-decoration:none;">' + email + '</a></td></tr>'
+      + '<tr><td width="480" style="padding:0 0 14px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#231f20; line-height:1.4;"><img src="' + arrowURL + '" alt="" width="12" height="12" style="float:left; border:0; width:12px; min-width:12px; height:12px; min-height:12px; margin-right:5px; margin-top:2px;"><a href="https://www.hellohaledesign.com" style="font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#231f20; text-decoration:none;">hellohaledesign.com</a></td></tr>'
+      + '<tr><td width="480" style="padding:0;"><a href="https://www.hellohaledesign.com" target="_blank"><img src="' + logoURL + '" alt="Hale Design" width="98" height="36" style="display:block; border:0; width:98px; max-width:98px; height:auto; -ms-interpolation-mode:bicubic;"></a></td></tr>'
+      + '</table>';
+  }
+
   function copySignature() {
     var btn       = document.getElementById('copy-btn');
     var statusBar = document.getElementById('status-bar');
@@ -202,6 +184,9 @@
 
     btn.classList.add('pressing');
     setTimeout(function() { btn.classList.remove('pressing'); }, 120);
+
+    // Build signature HTML with absolute URLs injected right at copy time
+    source.innerHTML = buildSignatureHTML();
 
     var range = document.createRange();
     range.selectNodeContents(source);
