@@ -150,9 +150,8 @@
   function buildSignatureHTML() {
     // Derives the absolute base URL from wherever the page is hosted —
     // works on Vercel, GitHub Pages, or any domain, for every team member.
-    var base     = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '');
-    var arrowURL = base + '/images/arrow.png';
-    var logoURL  = base + '/images/logo.png';
+    var arrowURL = 'https://static.wixstatic.com/media/5cb9e8_3645b969b0814b7eb71619f6def4c3b6~mv2.png';
+    var logoURL  = 'https://static.wixstatic.com/media/5cb9e8_f6b42a41198244aeb30d9d116f1ec9b2~mv2.png';
 
     var name     = inputName.value     || 'First Last';
     var pronouns = inputPronouns.value || '';
