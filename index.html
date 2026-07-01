@@ -78,11 +78,6 @@
     <div id="signature-preview">
       <table cellpadding="0" cellspacing="0" border="0" width="480" style="border-collapse:collapse; font-family:Arial,Helvetica,sans-serif; font-size:12px; width:480px;">
         <tr>
-          <td width="480" style="padding:0 0 8px 0;">
-            <div style="display:block; margin:0 0 0 -2px; padding:0; background-image:radial-gradient(circle, #231f20 1.5px, transparent 1.5px); background-size:7px 3px; background-repeat:repeat-x; height:3px; width:180px; font-size:0; line-height:0;">&nbsp;</div>
-          </td>
-        </tr>
-        <tr>
           <td width="480" style="padding:0 0 1px 0;">
             <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr><td style="padding:0; font-family:Arial,Helvetica,sans-serif; font-size:15px; font-weight:600; color:#231f20; letter-spacing:0.2px; line-height:1.3; white-space:nowrap;"><span id="prev-name">First Last</span></td><td style="padding:0 0 0 6px; font-family:Arial,Helvetica,sans-serif; font-size:12px; font-weight:400; color:#231f20; line-height:1.3; vertical-align:bottom; white-space:nowrap;"><span id="prev-pronouns"></span></td></tr></table>
           </td>
@@ -122,10 +117,6 @@
     
     <p class="helper-note" style="margin-top:12px;">Use <strong>Copy Signature</strong> for desktop &amp; Gmail &bull; Use <strong>Copy for iPhone Mail</strong> for Apple Mail on iPhone</p>
     <div class="status-bar" id="status-bar"></div>
-    <div style="margin-top:20px; border-top:1px solid #eee; padding-top:16px;">
-      <button class="copy-btn-mobile" id="copy-btn-nodots" onclick="copyNodotsSignature()">Copy Without Dotted Line</button>
-      <p style="font-size:11.5px; padding-top:12px; color:#aaa; text-align:center; margin-bottom:10px;">No dotted line — use if your email app doesn't render it correctly</p>
-    </div>
   </div>
 
 </div>
@@ -181,7 +172,6 @@
       : '';
 
     return '<table cellpadding="0" cellspacing="0" border="0" width="480" style="border-collapse:collapse; font-family:Arial,Helvetica,sans-serif; font-size:12px; width:480px;">'
-      + '<tr><td width="480" style="padding:0 0 8px 0;"><div style="display:block; margin:0 0 0 -2px; padding:0; background-image:radial-gradient(circle, #231f20 1.5px, transparent 1.5px); background-size:7px 3px; background-repeat:repeat-x; height:3px; width:180px; font-size:0; line-height:0;">&nbsp;</div></td></tr>'
       + '<tr><td width="480" style="padding:0 0 1px 0;"><table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr><td style="padding:0; font-family:Arial,Helvetica,sans-serif; font-size:15px; font-weight:600; color:#231f20; letter-spacing:0.2px; line-height:1.3; white-space:nowrap;">' + name + '</td>' + pronounsHTML + '</tr></table></td></tr>'
       + '<tr><td width="480" style="padding:0 0 12px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; font-weight:400; color:#231f20; line-height:1.4;">' + title + '</td></tr>'
       + '<tr><td width="480" style="padding:0 0 1px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; font-weight:700; color:#231f20; line-height:1.4;">Hale Design</td></tr>'
@@ -208,7 +198,6 @@
     var phone    = inputPhone.value    || '555-000-0000';
 
     mobileDiv.innerHTML = '<div style="font-family:Arial,Helvetica,sans-serif; font-size:13px; color:#000;">'
-      + '<div style="background-image:radial-gradient(circle, #000 1.5px, transparent 1.5px); background-size:7px 3px; background-repeat:repeat-x; height:3px; width:180px; margin-bottom:8px;">&nbsp;</div>'
       + '<b>' + name + '</b>' + (pronouns ? '&nbsp;&nbsp;' + pronouns : '') + '<br>'
       + title + '<br>'
       + '<br>'
@@ -240,64 +229,6 @@
       btn.classList.add('error');
       statusBar.className = 'status-bar show fail';
       setTimeout(function() { btn.textContent = 'Copy for iPhone Mail'; btn.classList.remove('error'); statusBar.className = 'status-bar'; }, 4000);
-    }
-  }
-
-  function copyNodotsSignature() {
-    var btn       = document.getElementById('copy-btn-nodots');
-    var statusBar = document.getElementById('status-bar');
-    var source    = document.getElementById('sig-copy-source');
-
-    btn.classList.add('pressing');
-    setTimeout(function() { btn.classList.remove('pressing'); }, 120);
-
-    var arrowURL = 'https://static.wixstatic.com/media/5cb9e8_3645b969b0814b7eb71619f6def4c3b6~mv2.png';
-    var logoURL  = 'https://static.wixstatic.com/media/5cb9e8_f6b42a41198244aeb30d9d116f1ec9b2~mv2.png';
-
-    var name     = inputName.value     || 'First Last';
-    var pronouns = inputPronouns.value || '';
-    var title    = inputTitle.value    || 'Title';
-    var email    = inputEmail.value    || 'you@hellohaledesign.com';
-    var phone    = inputPhone.value    || '555-000-0000';
-
-    var pronounsHTML = pronouns
-      ? '<td style="padding:0 0 0 6px; font-family:Arial,Helvetica,sans-serif; font-size:12px; font-weight:400; color:#231f20; line-height:1.3; vertical-align:bottom; white-space:nowrap;">' + pronouns + '</td>'
-      : '';
-
-    source.innerHTML = '<table cellpadding="0" cellspacing="0" border="0" width="480" style="border-collapse:collapse; font-family:Arial,Helvetica,sans-serif; font-size:12px; width:480px;">'
-      + '<tr><td width="480" style="padding:0 0 8px 0;"></td></tr>'
-      + '<tr><td width="480" style="padding:0 0 1px 0;"><table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr><td style="padding:0; font-family:Arial,Helvetica,sans-serif; font-size:15px; font-weight:600; color:#231f20; letter-spacing:0.2px; line-height:1.3; white-space:nowrap;">' + name + '</td>' + pronounsHTML + '</tr></table></td></tr>'
-      + '<tr><td width="480" style="padding:0 0 12px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; font-weight:400; color:#231f20; line-height:1.4;">' + title + '</td></tr>'
-      + '<tr><td width="480" style="padding:0 0 1px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; font-weight:700; color:#231f20; line-height:1.4;">Hale Design</td></tr>'
-      + '<tr><td width="480" style="padding:0 0 2px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; font-weight:400; color:#231f20; line-height:1.4;">Strategic. Iconic. Inspired.</td></tr>'
-      + '<tr><td width="480" style="padding:0 0 1px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#231f20; line-height:1.4;">' + phone + '</td></tr>'
-      + '<tr><td width="480" style="padding:0 0 2px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#231f20; line-height:1.4;"><a href="mailto:' + email + '" style="font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#231f20; text-decoration:none;">' + email + '</a></td></tr>'
-      + '<tr><td width="480" style="padding:0 0 14px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#231f20; line-height:1.4;"><table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr><td style="padding:0; vertical-align:middle; width:17px;"><img src="' + arrowURL + '" alt="" width="12" height="12" style="display:block; border:0; width:12px; height:12px;"></td><td style="padding:0; vertical-align:middle; font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#231f20;"><a href="https://www.hellohaledesign.com" style="font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#231f20; text-decoration:none;">hellohaledesign.com</a></td></tr></table></td></tr>'
-      + '<tr><td width="480" style="padding:0;"><a href="https://www.hellohaledesign.com" target="_blank"><img src="' + logoURL + '" alt="Hale Design" width="98" height="36" style="display:block; border:0; width:98px; max-width:98px; height:auto; -ms-interpolation-mode:bicubic;"></a></td></tr>'
-      + '</table>';
-
-    var range = document.createRange();
-    range.selectNodeContents(source);
-    var sel = window.getSelection();
-    sel.removeAllRanges();
-    sel.addRange(range);
-
-    var success = false;
-    try { success = document.execCommand('copy'); } catch (e) { success = false; }
-    sel.removeAllRanges();
-
-    if (success) {
-      btn.textContent = '\u2713 Copied!';
-      btn.classList.add('copied');
-      statusBar.textContent = 'Signature copied (no dotted line) \u2014 paste it into your email settings now.';
-      statusBar.className = 'status-bar show success';
-      setTimeout(function() { btn.textContent = 'Copy Without Dotted Line'; btn.classList.remove('copied'); statusBar.className = 'status-bar'; }, 4000);
-    } else {
-      btn.textContent = 'Try manually \u2014 see note below';
-      btn.classList.add('error');
-      statusBar.textContent = 'Auto-copy failed. Click inside the preview above, press Ctrl+A (or \u2318A), then Copy.';
-      statusBar.className = 'status-bar show fail';
-      setTimeout(function() { btn.textContent = 'Copy Without Dotted Line'; btn.classList.remove('error'); statusBar.className = 'status-bar'; }, 6000);
     }
   }
 
